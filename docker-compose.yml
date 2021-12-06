@@ -1,0 +1,37 @@
+version: '3'
+networks:
+    wiquadro:
+        driver: bridge
+services:
+  mysql_server:
+    image: mariadb
+    container_name: mysql_server
+    command: mysqld --sql_mode="NO_ENGINE_SUBSTITUTION" --lower-case-table-names=1
+    ports:
+        - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: wiquadro
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: wiquadro
+    volumes:
+      - ./db/data:/var/lib/mysql
+    networks:
+      - wiquadro
+
+  ubuntu_server: 
+    build:
+      dockerfile: python_server.dockerfile
+      context: .
+    image: ubuntu_server
+    container_name: ubuntu_server
+    command: tail -f /dev/null
+    restart: always
+    volumes:
+      - ./python:/empreendedor_alagoas
+    depends_on:
+      - mysql_server
+    networks:
+      - wiquadro
+
+  
