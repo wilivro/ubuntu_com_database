@@ -5,3 +5,5 @@ Para uso do database copie o diretório db do sistema da wiquadro
 Comandos para utilizar na primeira vez:
 docker-compose build
 docker-compose up
+
+O arquivo de autorização para acesso a planilha(gerado pelo google) não consta do projeto por questões de segurança
